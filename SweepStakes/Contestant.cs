@@ -20,7 +20,10 @@ namespace SweepStakes
             lotteryNumber = LotteryNumber;
         }
 
-       
+       public Contestant()
+        {
+            name = null;
+        }
 
 
     }

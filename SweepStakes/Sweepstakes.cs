@@ -6,23 +6,31 @@ using System.Threading.Tasks;
 
 namespace SweepStakes
 {
-    public class Sweepstakes
+    public class Sweepstakes : Contestant
     {
 
         public string sweepstakesName;
 
         Random rnd;
-        int lotteryNumber;
+
+        int winningLottoNumber;
 
         Contestant contestant;
 
-        Dictionary<string, int> contestantList;
+        Dictionary<string, int> contestantDictionary;
+
+        List<Contestant> contestantList;
 
         public Sweepstakes()
         {
             rnd = new Random();
             
-            contestantList = new Dictionary<string, int>();
+            contestantDictionary = new Dictionary<string, int>();
+
+            contestant = new Contestant();
+
+            contestantList = new List<Contestant>();
+            
         }
 
        
@@ -30,6 +38,8 @@ namespace SweepStakes
         {
 
             sweepstakesName = SweepstakesName;
+
+            PreregisteredContestants();
 
             Console.WriteLine("Welcome to DevCodeCamp Sweepstakes Creator!");
             Console.WriteLine("------------------------");
@@ -41,7 +51,26 @@ namespace SweepStakes
             RegisterContestant(contestant);
         }
 
-        public void RegisterContestant (Contestant Contestant)
+        public void PreregisteredContestants()
+        {
+            Contestant khiera = new Contestant("Khiera", 21, 3);
+            Contestant gwen = new Contestant("Gwen", 49, 4);
+            Contestant sam = new Contestant("Sam", 52, 5);
+            Contestant jasmine = new Contestant("Jasmine", 23, 6);
+
+            contestantDictionary.Add("Khiera", 3);
+            contestantDictionary.Add("Gwen",4);
+            contestantDictionary.Add("Sam",5);
+            contestantDictionary.Add("Jasmine",6);
+
+            contestantList.Add(khiera);
+            contestantList.Add(gwen);
+            contestantList.Add(sam);
+            contestantList.Add(jasmine);
+
+        }
+
+        public void RegisterContestant (Contestant contestant)
         {
             
             Console.WriteLine("Would you like to register for "+sweepstakesName+" sweepstakes?");
@@ -56,13 +85,13 @@ namespace SweepStakes
                 Console.WriteLine("Please enter your name below.");
                 Console.WriteLine("------------------------");
 
-                string contestantName = Console.ReadLine();
+                contestant.name = Console.ReadLine();
                 Console.WriteLine("------------------------");
-                Console.WriteLine("How old are you "+contestantName+"?");
+                Console.WriteLine("How old are you "+contestant.name+"?");
                 Console.WriteLine("------------------------");
-                int contestantAge = Convert.ToInt32(Console.ReadLine());
+                contestant.age = Convert.ToInt32(Console.ReadLine());
 
-                if (contestantAge < 16)
+                if (contestant.age < 16)
                 {
                     Console.WriteLine("I'm sorry. You have to be at least 16 to register for a sweepstakes. Thank you. Have a good day!");
                     Console.ReadKey();
@@ -70,15 +99,17 @@ namespace SweepStakes
                 }
 
                 Console.WriteLine("------------------------");
-                Console.WriteLine("Thank you "+contestantName+" for registering!");
+                Console.WriteLine("Thank you "+contestant.name+" for registering!");
                 Console.WriteLine("------------------------");
-                lotteryNumber = rnd.Next(1, 11);
-                Console.WriteLine(contestantName+" your lottery number is "+lotteryNumber);
+                contestant.lotteryNumber = rnd.Next(1, 11);
+                Console.WriteLine(contestant.name+" your lottery number is "+contestant.lotteryNumber);
                 Console.WriteLine("------------------------");
-                contestant = new Contestant(contestantName, contestantAge, lotteryNumber);
-                contestant = Contestant;
 
-                contestantList.Add(contestantName, lotteryNumber);
+                contestant = new Contestant(contestant.name, contestant.age, contestant.lotteryNumber);
+
+
+                contestantDictionary.Add(contestant.name, contestant.lotteryNumber);
+                contestantList.Add(contestant);
 
                 PrintContestantInfo(contestant);
 
@@ -105,7 +136,7 @@ namespace SweepStakes
             }
             else if (choice == 2)
             {
-                // insert other functions
+                PickWinner();
             }
             else
             {
@@ -114,22 +145,117 @@ namespace SweepStakes
                 Operations();
             }
         }
-        
 
-        //public string PickWinner()
-        //{
 
+        public string PickWinner()
+        {
+            winningLottoNumber = rnd.Next(1, 11);
+           
+                Console.WriteLine("The winning lottery number is " + winningLottoNumber);
+                Console.WriteLine("-----------------------------");
+
+            foreach (Contestant winner in contestantList)
+            {
+                if (winningLottoNumber == 1 && winner.lotteryNumber == 1)
+                {
+
+                    Console.WriteLine("The winner(s): " + winner.name);
+
+                    contestantDictionary.Remove(winner.name);
+                    contestantList.Remove(winner);
+                    break;
+                }
+                else if (winningLottoNumber == 2 && winner.lotteryNumber == 2)
+                {
+                    Console.WriteLine("The winner(s): " + winner.name);
+
+                    contestantDictionary.Remove(winner.name);
+                    contestantList.Remove(winner);
+                    break;
+                }
+                else if (winningLottoNumber == 3 && winner.lotteryNumber == 3)
+                {
+                    Console.WriteLine("The winner(s): " + winner.name);
+
+                    contestantDictionary.Remove(winner.name);
+                    contestantList.Remove(winner);
+                    break;
+                }
+                else if (winningLottoNumber == 4 && winner.lotteryNumber == 4)
+                {
+                    Console.WriteLine("The winner(s): " + winner.name);
+
+                    contestantDictionary.Remove(winner.name);
+                    contestantList.Remove(winner);
+                    break;
+                }
+                else if (winningLottoNumber == 5 && winner.lotteryNumber == 5)
+                {
+                    Console.WriteLine("The winner(s): " + winner.name);
+
+                    contestantDictionary.Remove(winner.name);
+                    contestantList.Remove(winner);
+                    break;
+                }
+                else if (winningLottoNumber == 6 && winner.lotteryNumber == 6)
+                {
+                    Console.WriteLine("The winner(s): " + winner.name);
+
+                    contestantDictionary.Remove(winner.name);
+                    contestantList.Remove(winner);
+                    break;
+                }
+                else if (winningLottoNumber == 7 && winner.lotteryNumber == 7)
+                {
+                    Console.WriteLine("The winner(s): " + winner.name);
+
+                    contestantDictionary.Remove(winner.name);
+                    contestantList.Remove(winner);
+                    break;
+                }
+                else if (winningLottoNumber == 8 && winner.lotteryNumber == 8)
+                {
+                    Console.WriteLine("The winner(s): " + winner.name);
+
+                    contestantDictionary.Remove(winner.name);
+                    contestantList.Remove(winner);
+                    break;
+                }
+                else if (winningLottoNumber == 9 && winner.lotteryNumber == 9)
+                {
+                    Console.WriteLine("The winner(s): " + winner.name);
+
+                    contestantDictionary.Remove(winner.name);
+                    contestantList.Remove(winner);
+                    break;
+                }
+                else if (winningLottoNumber == 10 && winner.lotteryNumber == 10)
+                {
+                    Console.WriteLine("The winner(s): " + winner.name);
+
+                    contestantDictionary.Remove(winner.name);
+                    contestantList.Remove(winner);
+                    break;
+                }
+            }
+
+            Console.WriteLine("------------------------------");
+            Console.WriteLine("Congratulations if you won! If you did not win, try again later to see if you win.");
+                Console.WriteLine("------------------------------");
+                RegisterContestant(contestant);
             
-        //}
+
+            return contestant.name;
+        }
 
         public void PrintContestantInfo(Contestant contestant)
         {
 
             Console.WriteLine(sweepstakesName+" Contestant List");
             Console.WriteLine("-----------------------");
-            foreach (KeyValuePair<string, int> contestantView in contestantList)
+            foreach (KeyValuePair<string, int> contestantView in contestantDictionary)
             {
-                Console.WriteLine("|Name: {0} |Lotto #: {1}", contestantView.Key, contestantView.Value);
+                Console.WriteLine("|Lotto #: {0} |Name : {1}", contestantView.Value,contestantView.Key );
             }
             Console.WriteLine("-----------------------");
         }
