@@ -16,10 +16,13 @@ namespace SweepStakes
 
         Contestant contestant;
 
+        Dictionary<string, int> contestantList;
+
         public Sweepstakes()
         {
             rnd = new Random();
-            lotteryNumber = rnd.Next(1, 11);
+            
+            contestantList = new Dictionary<string, int>();
         }
 
        
@@ -53,27 +56,64 @@ namespace SweepStakes
                 Console.WriteLine("Please enter your name below.");
                 Console.WriteLine("------------------------");
 
-                string name = Console.ReadLine();
+                string contestantName = Console.ReadLine();
                 Console.WriteLine("------------------------");
-                Console.WriteLine("How old are you "+name+"?");
+                Console.WriteLine("How old are you "+contestantName+"?");
                 Console.WriteLine("------------------------");
-                int age = Convert.ToInt32(Console.ReadLine());
+                int contestantAge = Convert.ToInt32(Console.ReadLine());
+
+                if (contestantAge < 16)
+                {
+                    Console.WriteLine("I'm sorry. You have to be at least 16 to register for a sweepstakes. Thank you. Have a good day!");
+                    Console.ReadKey();
+                    Environment.Exit(0);
+                }
+
                 Console.WriteLine("------------------------");
-                Console.WriteLine("Thank you "+name+" for registering!");
+                Console.WriteLine("Thank you "+contestantName+" for registering!");
                 Console.WriteLine("------------------------");
-                
-                Console.WriteLine(name+" your lottery number is "+lotteryNumber);
+                lotteryNumber = rnd.Next(1, 11);
+                Console.WriteLine(contestantName+" your lottery number is "+lotteryNumber);
                 Console.WriteLine("------------------------");
-                contestant = new Contestant(name, age, lotteryNumber);
+                contestant = new Contestant(contestantName, contestantAge, lotteryNumber);
                 contestant = Contestant;
 
+                contestantList.Add(contestantName, lotteryNumber);
 
-                Console.WriteLine("|Name: "+name+" |Age: "+age+" |Lotto #: "+lotteryNumber+" |");
+                PrintContestantInfo(contestant);
+
+                Operations();
 
             }
 
         }
 
+
+        public void Operations()
+        {
+            Console.WriteLine("Would you like to register another contestant for "+sweepstakesName+"?");
+            Console.WriteLine("------------------------");
+            Console.WriteLine("1. Yes");
+            Console.WriteLine("2. No");
+            Console.WriteLine("------------------------");
+
+            int choice = Convert.ToInt32(Console.ReadLine());
+
+            if (choice == 1)
+            {
+                RegisterContestant(contestant);
+            }
+            else if (choice == 2)
+            {
+                // insert other functions
+            }
+            else
+            {
+                Console.WriteLine("Please enter the the numerical value associated with your decision!");
+                Console.WriteLine("------------------------");
+                Operations();
+            }
+        }
         
 
         //public string PickWinner()
@@ -85,7 +125,16 @@ namespace SweepStakes
         public void PrintContestantInfo(Contestant contestant)
         {
 
+            Console.WriteLine(sweepstakesName+" Contestant List");
+            Console.WriteLine("-----------------------");
+            foreach (KeyValuePair<string, int> contestantView in contestantList)
+            {
+                Console.WriteLine("|Name: {0} |Lotto #: {1}", contestantView.Key, contestantView.Value);
+            }
+            Console.WriteLine("-----------------------");
         }
+
+        
 
     }
 }
