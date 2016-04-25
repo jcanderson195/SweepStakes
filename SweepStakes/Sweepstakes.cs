@@ -25,7 +25,7 @@ namespace SweepStakes
         {
             rnd = new Random();
             
-            contestantDictionary = new Dictionary<string, int>();
+            
 
             contestant = new Contestant();
 
@@ -33,7 +33,14 @@ namespace SweepStakes
             
         }
 
-       
+
+        public void Introduction()
+        {
+            Console.WriteLine("Welcome to DevCodeCamp Sweepstakes Creator!");
+            Console.WriteLine("------------------------");
+            SweepstakesName(sweepstakesName);
+        }
+
         public void SweepstakesName(string SweepstakesName)
         {
 
@@ -41,8 +48,6 @@ namespace SweepStakes
 
             PreregisteredContestants();
 
-            Console.WriteLine("Welcome to DevCodeCamp Sweepstakes Creator!");
-            Console.WriteLine("------------------------");
             Console.WriteLine("Please enter the name of the sweepstakes you would like to create below.");
             Console.WriteLine("------------------------");
             sweepstakesName = Console.ReadLine();
@@ -53,6 +58,8 @@ namespace SweepStakes
 
         public void PreregisteredContestants()
         {
+            contestantDictionary = new Dictionary<string, int>();
+
             Contestant khiera = new Contestant("Khiera", 21, 3);
             Contestant gwen = new Contestant("Gwen", 49, 4);
             Contestant sam = new Contestant("Sam", 52, 5);
@@ -136,7 +143,23 @@ namespace SweepStakes
             }
             else if (choice == 2)
             {
-                PickWinner();
+                Console.WriteLine("Do you want to create a new sweepstake or get a winner for "+sweepstakesName+ " sweepstake?");
+                Console.WriteLine("------------------------");
+                Console.WriteLine("1. Create new sweepstake");
+                Console.WriteLine("2. Get winner");
+                Console.WriteLine("------------------------");
+
+                int choice2 = Convert.ToInt32(Console.ReadLine());
+
+                if (choice2 == 1)
+                {
+                    SweepstakesName(sweepstakesName);
+                }
+                else if (choice2 == 2)
+                {
+                    PickWinner();
+                }
+                
             }
             else
             {
@@ -241,12 +264,37 @@ namespace SweepStakes
 
             Console.WriteLine("------------------------------");
             Console.WriteLine("Congratulations if you won! If you did not win, try again later to see if you win.");
-                Console.WriteLine("------------------------------");
-                RegisterContestant(contestant);
-            
+            Console.WriteLine("------------------------------");
+
+            Console.WriteLine("What would you like to do now?");
+            Console.WriteLine("------------------------");
+            Console.WriteLine("1. Create new sweepstake");
+            Console.WriteLine("2. Get another winner");
+            Console.WriteLine("3. Exit");
+            Console.WriteLine("------------------------");
+
+            int choice2 = Convert.ToInt32(Console.ReadLine());
+
+            if (choice2 == 1)
+            {
+                SweepstakesName(sweepstakesName);
+            }
+            else if (choice2 == 2)
+            {
+                PickWinner();
+            }
+            else if (choice2 == 3)
+            {
+                Console.WriteLine("--------------------------");
+                Console.WriteLine("Thank you for taking part in our Sweepstake application. Have a good day!");
+                Console.ReadKey();
+                Environment.Exit(0);
+            }
 
             return contestant.name;
         }
+
+
 
         public void PrintContestantInfo(Contestant contestant)
         {

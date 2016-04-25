@@ -11,8 +11,8 @@ namespace SweepStakes
         static void Main(string[] args)
         {
 
-            Sweepstakes test = new Sweepstakes();
-            test.SweepstakesName("sweepstakesName");
+            Sweepstakes runApp = new Sweepstakes();
+            runApp.Introduction();
 
             Console.ReadKey();
 
